@@ -1,20 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Switch, View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import systemSetting from 'react-native-system-setting';
 
-export default function App() {
+const App = () => {
+  const [switchValue, setSwitchValue] = useState(false);
+
+  const toggleSwitch = (value) => {
+    setSwitchValue(value)
+    if (value == true) {
+      console.log("Bike Mode Off")
+    } else {
+      console.log("Bike Mode On")
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          {switchValue ? 'S Bike Mode On' : 'S Bike Mode Off'}
+        </Text>
+        <Switch
+          style={styles.SwitchStyle}
+          onValueChange={toggleSwitch}
+          value = {switchValue}
+        />
+      </View>
+    </SafeAreaView>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create(
+  {
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems : 'center'
+    },
+
+    text: {
+      fontSize: 30,
+      fontWeight: 'bold'
+    },
+
+    SwitchStyle: {
+      marginTop: 40,
+    }
+  }
+);
+
+export default App;
